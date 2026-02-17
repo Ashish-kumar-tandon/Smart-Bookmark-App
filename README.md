@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Smart Bookmark App
 
-## Getting Started
+A streamlined, real-time bookmark manager built to securely save and organize web links.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Google OAuth Authentication**: Secure sign-in exclusively via Google OAuth.
+- **Private User Data**: Bookmarks are private to each user; Row Level Security (RLS) ensures users cannot see or modify others' data.
+- **Real-time Synchronization**: The dashboard updates instantly across multiple tabs without page refreshes using database listeners.
+- **Full CRUD Functionality**: Users can add (URL + Title) and delete their own bookmarks.
+- **Deployment**: Fully optimized for and deployed on Vercel.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript
+- **Database & Auth**: Supabase (Auth, PostgreSQL, Realtime)
+- **Styling**: Tailwind CSS 4
+- **Deployment**: Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧠 Challenges & Solutions
 
-## Learn More
+### 1. Real-time Updates without Refresh
 
-To learn more about Next.js, take a look at the following resources:
+**Problem**: The requirement was to update the UI in real-time if a bookmark is added in a different tab.
+**Solution**: I implemented **Supabase Realtime** subscriptions. By listening to `INSERT` and `DELETE` events on the bookmarks table, the UI state reflects database changes immediately for the logged-in user.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 2. Ensuring Strict Data Privacy
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Problem**: Bookmarks must be private to each user.
+**Solution**: I configured **Row Level Security (RLS)** policies in the Supabase dashboard. I created a policy that restricts `SELECT` and `DELETE` actions to only those rows where the `user_id` matches the authenticated `auth.uid()`.
 
-## Deploy on Vercel
+### 3. Google-Only Authentication
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Problem**: The app requires Google OAuth only, with no traditional email/password login.
+**Solution**: I utilized the `@supabase/ssr` package to manage server-side sessions and restricted the login flow to the Google provider using `signInWithOAuth`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🔗 Links
+
+- **Live Demo**:
+- **GitHub Repository**: https://github.com/Ashish-kumar-tandon/Smart-Bookmark-App
