@@ -37,5 +37,5 @@ A streamlined, real-time bookmark manager built to securely save and organize we
 
 ## 🔗 Links
 
-- **Live Demo**:
+- **Live Demo**: https://smart-bookmark-app-three-umber.vercel.app/
 - **GitHub Repository**: https://github.com/Ashish-kumar-tandon/Smart-Bookmark-App
